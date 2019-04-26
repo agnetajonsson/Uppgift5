@@ -48,13 +48,35 @@ namespace Uppgift5
                     color = value;
             }
         }
+        public int wheel;
+        public int Wheel
+        {
+            get
+            {
+                return wheel;
+            }
+            set
+            {
+                if (value > 0)
 
-        public Vehicle(string regno, string vehicletype, string color)
+                    wheel = value;
+            }
+        }
+
+        // konstruktorn för vehicle
+        public Vehicle(string regno, string vehicletype, string color, int wheel)
 
         {
+            Regno = regno;
             VehicleType = vehicletype;
             Color = color;
-            Regno = regno;
+            Wheel = wheel;
+        }
+        public virtual string Stats()
+        {
+            string returnString = $"Regno: {Regno} , Vehicletype: {VehicleType} , Color: {Color} , Wheel: {Wheel}";
+           
+            return returnString;
         }
     }
 }

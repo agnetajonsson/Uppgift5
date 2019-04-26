@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Uppgift5
 {
-    class Garage<T> where T : Vehicle
+    class Garage<T> : IEnumerable<T> where T : Vehicle
     {
         private string name;
         public string Name
-
         {
             get
             {
@@ -19,25 +20,62 @@ namespace Uppgift5
             }
         }
 
-        private int parkingplaces;
-        public int ParkingPlaces
+        private T[] vehicles;
+        public Garage(string name, int capacity)
         {
-            get
+            Name = name;
+            Capacity = Math.Max(0, capacity);
+            vehicles = new T[capacity];
+        }
+
+        public int Capacity { get; }
+        public int Count { get; private set; }
+     
+        public bool IsFull => Capacity <= Count;
+        public bool Add(T vehicle)
+        {
+            if (vehicle == null) return false;
+
+            if (IsFull) return false;
+            //Todo: Logic here..... Tips for loop
+            //vehicles[i]
+            //platsen tom = null
+
+            for (int i = 0; i < Capacity; i++)
             {
-                return parkingplaces;
+                if (vehicles[i] == null)
+                {
+                    vehicles[i] = vehicle;
+                    return true;
+                }
             }
-            set
+            return false;
+        }
+        public bool Remove(T vehicle)
+        {
+            //Hitta fordonet och ta bort det!
+            return true;
+        }
+
+      
+      
+        public IEnumerator<T> GetEnumerator()
+        {
+            //ToDo Implement logic...
+            //Hitta alla fordon i vehicles arrayen som inte är null och yield return på dessa!
+           foreach (var vehicle in vehicles)
             {
-                if (value > 0)
-                    parkingplaces = value;
+                if (vehicle != null)
+                   yield return vehicle;
             }
         }
 
-        public Garage(string name, int parkingplaces) // konstruktor för garage
+        IEnumerator IEnumerable.GetEnumerator()
         {
-            Name = name;
-            ParkingPlaces = parkingplaces;
+            return this.GetEnumerator();
         }
-                
+
+        //IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
     }
 }

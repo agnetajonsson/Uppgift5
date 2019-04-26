@@ -16,16 +16,18 @@ namespace Uppgift5
             set
             {
                 if (!string.IsNullOrEmpty(value))
-
                     fueltype = value;
             }
         }
-        public Car(string regno, string vehicletype, string color, string fueltype) : base(regno, vehicletype, color)
+        public Car(string regno, string vehicletype, string color, int wheel, string fueltype) : base(regno, vehicletype, color, wheel)
         {
             Fueltype = fueltype;
         }
+        public string Something { get; }
+        public override string Stats()
+
+        {
+            return base.Stats() + $", Fueltype: {Fueltype}";
+        }
     }
-
-
-
 }
