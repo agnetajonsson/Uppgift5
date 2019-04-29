@@ -18,7 +18,6 @@ namespace Uppgift5
             garage = new Garage<Vehicle>(name, capacity);
             Console.WriteLine($"Name: {garage.Name}, Number of parking places: { garage.Capacity}");
             
-            Console.WriteLine($"Number of vehicle: { garage.Count}");
             return true;
         }
       //metod för createVehicle

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Uppgift5
 {
@@ -13,13 +14,14 @@ namespace Uppgift5
         public static int Wheel { get; private set; }
         static void Main(string[] args)
         {
-            //Console.WriteLine("Hello World!");
             GarageHandler garagehandler = new GarageHandler();
             bool garageOK = garagehandler.CreateGarage("Citygaraget", 500);
+            Console.WriteLine(" ");
 
             //Console.WriteLine($"Name: {garage.Name}, Number of parking places: { garage.ParkingPlaces}");
-           
+
             Console.WriteLine("Du har kommit till huvudmenyn");
+            Console.WriteLine(" ");
 
             do
             {
@@ -43,18 +45,24 @@ namespace Uppgift5
                         {
                             Console.WriteLine(v.Stats()); //Skriv ut det du vill visa
                         }
-                        return;
+
+                        break;
 
                     case "2":
                         Console.WriteLine("Lista fordonstyper och antal av varje: ");
 
                         var listVehicles = garagehandler.GetVehicles();
-                        foreach (var v in listVehicles)
+                        var NumberOFVehicleType = listVehicles
+                                .GroupBy(v => v.VehicleType)
+                                .Select(c => new { VehicleType = c.Key, Amount = c.Count() })
+                                .ToList();
+
+                        foreach (var v in NumberOFVehicleType)
                         {
-                            Console.WriteLine(v.Stats()); //Skriv ut det du vill visa
+                            Console.WriteLine($"Vehicletype: {v.VehicleType}, Count: {v.Amount}"); //Skriv ut det du vill visa
                         }
 
-                        return;
+                        break;
 
                     case "3":
                         Console.WriteLine("Ange regno: ");
@@ -62,14 +70,28 @@ namespace Uppgift5
 
                         Console.WriteLine("Ange fordonstyp: ");
                         VehicleType = Console.ReadLine();
+                        VehicleType = VehicleType.ToUpper();
+                        switch (VehicleType)
+                        {
+                            case "AIRPLANE":
+                            case "MC":
+                            case "CAR":
+                            case "BUS":
+                            case "BOAT":
+                              
+                                break;
 
+                            default:
+                                Console.WriteLine("Tyvärr felaktig fordonstyp, endast Flygplan, MC, Bilar, Bussar, båtar");
+                                return;
+                               
+                        }
                         Console.WriteLine("Ange färg: ");
                         Color = Console.ReadLine();
 
                         Console.WriteLine("Ange antal hjul: ");
                         bool result = int.TryParse(Console.ReadLine(), out int Wheel);
 
-                        //var createdSuccesfully = garagehandler.CreateVehicle(Regno, VehicleType, Color, Wheel);
                         garagehandler.CreateVehicle(Regno, VehicleType, Color, Wheel);
                         break;
 
@@ -79,7 +101,7 @@ namespace Uppgift5
 
                     default:
                         Console.WriteLine("Felaktigt menyval");
-                        return;
+                        break;
                 }
             } while (true);
         }

@@ -64,6 +64,7 @@ namespace Uppgift5
             //ToDo Implement logic...
             //Hitta alla fordon i vehicles arrayen som inte är null och yield return på dessa!
            foreach (var vehicle in vehicles)
+
             {
                 if (vehicle != null)
                    yield return vehicle;
