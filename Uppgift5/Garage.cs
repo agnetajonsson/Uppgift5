@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Uppgift5
 {
-    class Garage<T> : IEnumerable<T> where T : Vehicle
+  public  class Garage<T> : IEnumerable<T> where T : Vehicle
     {
         private string name;
         public string Name
@@ -30,7 +30,7 @@ namespace Uppgift5
 
         public int Capacity { get; }
         public int Count { get; private set; }
-     
+
         public bool IsFull => Capacity <= Count;
         public bool Add(T vehicle)
         {
@@ -54,29 +54,54 @@ namespace Uppgift5
         public bool Remove(T vehicle)
         {
             //Hitta fordonet och ta bort det!
-            return true;
+            if (vehicle == null) return false;
+
+            for (int i = 0; i < Capacity; i++)
+            {
+                if (vehicles[i]== vehicle)
+                {
+                    vehicles[i] = null;
+                    return true;
+                }
+            }
+            return false;
         }
 
-      
-      
+        public bool Find(T vehicle)
+        {
+            //Hitta fordonet 
+            if (vehicle == null) return false;
+
+            for (int i = 0; i < Capacity; i++)
+            {
+                if (vehicles[i] == vehicle)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         public IEnumerator<T> GetEnumerator()
         {
-            //ToDo Implement logic...
-            //Hitta alla fordon i vehicles arrayen som inte är null och yield return på dessa!
-           foreach (var vehicle in vehicles)
+        //ToDo Implement logic...
+        //Hitta alla fordon i vehicles arrayen som inte är null och yield return på dessa!
+        foreach (var vehicle in vehicles)
 
             {
                 if (vehicle != null)
-                   yield return vehicle;
+                    yield return vehicle;
             }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.GetEnumerator();
+
+        return this.GetEnumerator();
         }
-
-        //IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
     }
+
+  
+
+    //IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
 }

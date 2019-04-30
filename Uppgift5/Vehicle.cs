@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Uppgift5
 {
-    class Vehicle
+   public class Vehicle
     {
 
         private string regno;
@@ -58,20 +58,19 @@ namespace Uppgift5
             set
             {
                 if (value > 0)
-
                     wheel = value;
             }
         }
 
         // konstruktorn för vehicle
         public Vehicle(string regno, string vehicletype, string color, int wheel)
-
         {
             Regno = regno;
             VehicleType = vehicletype;
             Color = color;
             Wheel = wheel;
         }
+
         public virtual string Stats()
         {
             string returnString = $"Regno: {Regno} , Vehicletype: {VehicleType} , Color: {Color} , Wheel: {Wheel}";

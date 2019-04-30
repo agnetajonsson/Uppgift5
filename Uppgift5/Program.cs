@@ -12,14 +12,13 @@ namespace Uppgift5
         public static string VehicleType { get; private set; }
         public static string Color { get; private set; }
         public static int Wheel { get; private set; }
+        public static string RemoveVehicles { get; private set; }
         static void Main(string[] args)
         {
             GarageHandler garagehandler = new GarageHandler();
             bool garageOK = garagehandler.CreateGarage("Citygaraget", 500);
             Console.WriteLine(" ");
-
-            //Console.WriteLine($"Name: {garage.Name}, Number of parking places: { garage.ParkingPlaces}");
-
+            
             Console.WriteLine("Du har kommit till huvudmenyn");
             Console.WriteLine(" ");
 
@@ -67,6 +66,7 @@ namespace Uppgift5
                     case "3":
                         Console.WriteLine("Ange regno: ");
                         Regno = Console.ReadLine();
+                        Regno = Regno.ToUpper();
 
                         Console.WriteLine("Ange fordonstyp: ");
                         VehicleType = Console.ReadLine();
@@ -95,12 +95,34 @@ namespace Uppgift5
                         garagehandler.CreateVehicle(Regno, VehicleType, Color, Wheel);
                         break;
 
+                    case "4":
+                        Console.WriteLine("Ange regno för fordenet du vill ta bort ");
+                        Regno = Console.ReadLine();
+                        garagehandler.RemoveVehicles(Regno);
+
+                        Console.WriteLine($"Fordon borttaget: {Regno}");
+                  
+                        break;
+
+                    case "6":
+                        Console.WriteLine("Ange regno för fordenet du vill hitta" +
+                            " ");
+                        //RemoveVehicles = Console.ReadLine();
+                        Regno = Console.ReadLine();
+                        Regno = Regno.ToUpper();
+                        garagehandler.FindVehicles(Regno);
+
+                        //Console.WriteLine($"Fordon hittat: {Regno} , Vehicletyp: {VehicleType} , Color: {Color} , Number of Wheel: {Wheel}");
+                        Console.WriteLine($"Fordon hittat: {Regno} , Vehicletyp: {VehicleType} , Color: {Color} ");
+                        break;
+
                     case "8":
                         Console.WriteLine("Tack för besöket, välkommen åter !");
                         return;
 
+
                     default:
-                        Console.WriteLine("Felaktigt menyval");
+                        Console.WriteLine("Wrong menychoice");
                         break;
                 }
             } while (true);
